@@ -1,0 +1,11 @@
+cgi-bin
+.git
+.svn
+.hg
+.bzr
+education
+betsie
+accessibility
+accesskeys
+go
+toolbar
