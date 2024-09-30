@@ -48,27 +48,13 @@ def send_parsed_request(method, url, headers, body):
 
     return response
 
-
-
-def read_file(filename):
-    try:
-        with open(filename, 'r') as file:
-            content = file.read()
-        return content
-    except FileNotFoundError:
-        return f"Error: The file {filename} was not found."
-    except Exception as e:
-        return f"Error: An error occurred while reading {filename}. Details: {str(e)}"
-
-
 def interpolate_payload(request_template, payload):
     # Use regex to replace everything between two § symbols with the payload
     return re.sub(r'§.*?§', payload, request_template)
 
 def sniper(template_file, payload_file, out_file):
-    template = read_file(template_file)
-
-    with open(payload_file) as f, open(out_file, 'w', buffering=1) as out:
+    with open(payload_file) as f, open(out_file, 'w', buffering=1) as out, open(template_file) as t:
+        template = t.read()
         out.write('payload|status_code|content_length\n')
         for line in f:
             line = line.rstrip()
